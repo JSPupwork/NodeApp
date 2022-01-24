@@ -1,0 +1,14 @@
+test
+node_modules
+package-lock.json
+.docker
+.git
+README.md
+docker-compose*
+.prettierrc.json
+.gitignore
+.vscode
+.idea
+Dockerfile
+.env
+.env.example

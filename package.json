@@ -1,0 +1,45 @@
+{
+  "name": "tc-api",
+  "version": "0.0.0",
+  "description": "Training Center Backend",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "npx nodemon --inspect=9123 ./src",
+    "env:up": "docker compose up -d",
+    "env:down": "docker compose down",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:seed": "npx sequelize-cli db:seed:all",
+    "db:seed:undo": "npx sequelize-cli db:seed:undo:all",
+    "test": "NODE_ENV=testing tap -J -w --no-coverage-report --no-check-coverage test/**/*.test.js",
+    "test:report": "NODE_ENV=testing npm run db:seed:undo && npm run db:seed && tap -Rspec test/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gtlb.jetsoftpro.com:nodejsp/jsptc-nodejs.git"
+  },
+  "author": "Dmytro Posvaliuk <dmytro.posvaliuk@jetsoftpro.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.45.0",
+    "argon2": "^0.28.3",
+    "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
+    "fastify": "^3.25.0",
+    "fastify-cookie": "^5.5.0",
+    "fastify-jwt": "^4.1.3",
+    "fastify-swagger": "^4.13.1",
+    "libphonenumber-js": "^1.9.44",
+    "mysql2": "^2.3.3",
+    "nanoid": "^3.2.0",
+    "sequelize": "^6.12.2",
+    "sequelize-cli": "^6.3.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^6.0.0-alpha.3",
+    "nodemon": "^2.0.15",
+    "pino-pretty": "^7.3.0",
+    "prettier": "^2.5.1",
+    "tap": "^15.1.6"
+  }
+}

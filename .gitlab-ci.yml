@@ -1,0 +1,32 @@
+image: docker:latest
+services:
+  - docker:dind
+
+stages:
+  - build
+  - release
+  - deploy
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY_HOST
+
+build:
+  stage: build
+  script:
+    - DOCKER_BUILDKIT=1 docker build -t $CI_REGISTRY_HOST/$CI_API_IMAGE_NAME:$CI_API_DEV_TAG .
+  only:
+    - develop
+
+release:
+  stage: release
+  script:
+    - docker push $CI_REGISTRY_HOST/$CI_API_IMAGE_NAME:$CI_API_DEV_TAG
+  only:
+    - develop
+
+deploy:
+  stage: deploy
+  script:
+    - curl -X POST $CI_DEPLOY_API_DEV_HOOK_URL
+  only:
+    - develop
